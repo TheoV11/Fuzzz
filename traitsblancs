@@ -1,0 +1,33 @@
+const section = document.querySelector('.animation');
+let mouseX = 0;
+let mouseY = 0;
+let currentX = 0;
+let currentY = 0;
+
+section.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function animate() {
+  currentX += (mouseX - currentX) * 0.05;
+  currentY += (mouseY - currentY) * 0.05;
+
+  const lines = document.querySelectorAll('.line');
+  for (let i = 0; i < lines.length; i++) {
+    const offset = i * 10;
+    const x = currentX + offset;
+    const y = currentY + offset;
+    lines[i].style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  requestAnimationFrame(animate);
+}
+
+for (let i = 0; i < 50; i++) {
+  const line = document.createElement('div');
+  line.classList.add('line');
+  section.appendChild(line);
+}
+
+animate();
